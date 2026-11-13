@@ -1,0 +1,6 @@
+[project]
+name = "linear-regression-model"
+version = "0.1.0"
+description = "Regression model, FastAPI service and Flutter app for the ALU summative"
+requires-python = ">=3.13"
+dependencies = []
