@@ -20,7 +20,27 @@ void main() {
     await tester.tap(find.text('Predict'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Some fields need fixing. Check the messages in red above.'), findsOneWidget);
+    expect(find.text('Could not predict'), findsOneWidget);
+    expect(find.textContaining('State: Required'), findsOneWidget);
+  });
+
+  testWidgets('an out-of-range value is named in the result box', (tester) async {
+    await tester.pumpWidget(const RevenueEstimatorApp());
+
+    await tester.tap(find.text('Fill example'));
+    await tester.pumpAndSettle();
+    final year = find.widgetWithText(TextFormField, 'Year', skipOffstage: false);
+    await tester.ensureVisible(year);
+    await tester.enterText(year, '2030');
+    // unfocus first, otherwise the focused field scrolls itself back into view
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Predict'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Predict'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Year: Must be between 2019 and 2024'), findsOneWidget);
   });
 
   test('money adds thousands separators and two decimals', () {
