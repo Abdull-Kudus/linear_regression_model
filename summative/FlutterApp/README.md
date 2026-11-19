@@ -1,17 +1,6 @@
-# revenue_estimator
+# Revenue Estimator app
 
-One-page app that estimates the monthly revenue per worker of a Nigerian informal business
+One-page Flutter app that sends 12 business details to the prediction API and shows the estimated monthly
+revenue per worker.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Setup and run steps are in the main [README](../../README.md#how-to-run-the-mobile-app).
