@@ -1,30 +1,31 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:revenue_estimator/main.dart';
+import 'package:revenue_estimator/predict_page.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('shows one text field per input and a Predict button', (tester) async {
+    await tester.pumpWidget(const RevenueEstimatorApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byType(TextFormField, skipOffstage: false), findsNWidgets(12));
+    expect(find.widgetWithText(FilledButton, 'Predict', skipOffstage: false), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('pressing Predict with empty fields shows an error instead of calling the API', (tester) async {
+    await tester.pumpWidget(const RevenueEstimatorApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.ensureVisible(find.text('Predict'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Predict'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Some fields need fixing. Check the messages in red above.'), findsOneWidget);
+  });
+
+  test('money adds thousands separators and two decimals', () {
+    expect(money(1376.14), r'$1,376.14');
+    expect(money(2752.284), r'$2,752.28');
+    expect(money(95), r'$95.00');
   });
 }
