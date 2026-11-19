@@ -164,9 +164,14 @@ class _PredictPageState extends State<PredictPage> {
   Future<void> _predict() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) {
+      // List each problem here too, so the error shows in the same box as the result.
+      final problems = [
+        for (final spec in _specs)
+          if (_validate(spec, _controllers[spec.key]!.text) case final message?) '${spec.label}: $message',
+      ];
       setState(() {
         _prediction = null;
-        _error = 'Some fields need fixing. Check the messages in red above.';
+        _error = problems.join('\n');
       });
       _showResult();
       return;
