@@ -65,7 +65,7 @@ US dollars). Each row is checked with the same rules as `/predict`.
 
 ## Video demo
 
-YouTube: _link to be added_
+<https://youtu.be/og9QVd1cM2o>
 
 ## How to run the mobile app
 
